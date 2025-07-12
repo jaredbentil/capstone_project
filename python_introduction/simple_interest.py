@@ -18,8 +18,8 @@
 #time with a value of 3 (representing 3 years).
 #Calculate the simple interest using the formula provided and store the result in a variable named interest.
 
-P = 1000  # Principal amount in dollars
-R = 0.05      # Annual interest rate (5%)
-T = 3         # Time in years 
-I= P * R * T  # Calculate simple interest
-print("The simple interest is", I)  # Output the result
+principal = 1000  # Principal amount in dollars
+rate = 0.05      # Annual interest rate (5%)
+time = 3         # Time in years 
+interest = principal * rate * time  # Calculate simple interest
+print("The simple interest is", interest)  # Output the result
