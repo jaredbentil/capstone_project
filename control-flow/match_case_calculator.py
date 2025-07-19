@@ -21,19 +21,19 @@ operation = input("Choose the operation (+, -, *, /): ")
 
 match operation:
     case "+":
-        result = num1 + num2
+        result = int(num1) + int(num2)
         print("The result is:", result)
     case "-":
-        result = num1 - num2
+        result = int(num1 - num2)
         print("The result is:", result)
     case "*":
-        result = num1 * num2
+        result = int(num1) * int(num2)
         print("the result is:", result)
     case "/":
         if num2 == 0:   
             print("Error: Division by zero is not allowed.")
         else:
-            result = num1 / num2
+            result = int(num1) / int(num2)
             print("The result is:", result)    
     case _:
         print("Invalid operation selected. Please choose from +, -, *, /.")
