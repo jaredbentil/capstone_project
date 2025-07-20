@@ -17,7 +17,7 @@
 #Print each line of the multiplication table in the format: “X * Y = Z”, where X is the user’s number, Y is the current number in the loop, and Z is the product.
 
 
-number = int(input("Enter a number to see its multiplication table:"))
+number = int(input("Enter a number to see its multiplication table: "))
 for x in range(1,11):
     timestable = number * x
     print (number, "*", x, "=", timestable)
