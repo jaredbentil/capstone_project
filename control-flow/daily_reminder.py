@@ -1,33 +1,46 @@
-# Objective: Utilize conditional statements to guide program execution based on user input regarding weather conditions.
+#Objective: Create a simplified Python script that uses conditional statements, Match Case, and loops to remind the user about a single, priority task for the day based on time sensitivity.
 
 #Task Description:
 
-#Create a Python script named weather_advice.py. This script will ask the user about the current weather conditions and provide clothing recommendations based on the input. This task aims to demonstrate the use of if, elif, and else statements to make decisions in a program.
+#Develop a script named daily_reminder.py. This script will ask the user for a single task, its priority level, and if it is time-sensitive. The program will then provide a customized reminder for that task, demonstrating control flow and loops without relying on data structures to store multiple tasks.
 
 #Instructions:
 
-#Prompt User for Weather Input:
+#Prompt for a Single Task:
 
-#Ask the user to input the current weather from a predefined set of conditions: sunny, rainy, or cold.
-#Use the prompt: What's the weather like today? (sunny/rainy/cold):.
-#Provide Clothing Recommendations:
+#Ask the user to input a task description and save it into a task variable
+#Prompt for the task’s priority (high, medium, low) and save it into a priority variable
+#In a time_bound variable, Ask if the task is time-bound (yes or no)
+#Process the Task Based on Priority and Time Sensitivity:
 
-#Based on the user’s input, your program will recommend different types of clothing:
-#If the weather is “sunny”, recommend: Wear a t-shirt and sunglasses.
-#If the weather is “rainy”, recommend: Don't forget your umbrella and a raincoat.
-#If the weather is “cold”, recommend: Make sure to wear a warm coat and a scarf.
-#Include an else statement that handles unexpected input by printing: Sorry, I don't have recommendations for this weather.
+#Use a Match Case statement to react differently based on the task’s priority.
+#Within the Match Case or after, use an if statement to modify the reminder if the task is time-bound.
+#Provide a Customized Reminder:
 
+#Print a reminder about the task that includes its priority level and whether immediate action is required based on time sensitivity.
+#A message should be ‘that requires immediate attention today!’
 
-weather = input("What's the weather like today? (sunny/rainy/cold): ")
-
-if weather == "sunny":
-    print ("Wear a t-shirt and sunglasses.")
-elif weather == "rainy":
-    print ("Don't forget your umbrella and raincoat.")
-elif weather == "cold":
-    print ("Make sure to wear a warm coat and a scarf.")
-else:
-    print ("Sorry, I don't have recommendations for this weather.")
-
-# End of the script
+task = input("Please enter your task for today: ")
+priority = input("What is the priority of this task? (high/medium/low): ").strip().lower()
+time_bound = input("Is this task time-bound? (yes/no): ").strip().lower()
+match priority:
+    case "high":
+        reminder = f"High priority task: {task}."
+        if time_bound == "yes":
+            print("This task requires immediate attention today!")
+        else:
+            print("This task can be addressed later.") 
+    case "medium":
+        reminder = f"Medium priority task: {task}."
+        if time_bound == "yes":
+            print("This task should be completed soon.")
+        else:
+            print("This task can wait until later.")    
+    case "low":
+        reminder = f"Low priority task: {task}."
+        if time_bound == "yes":
+            print("This task should be completed soon.")
+        else:
+            print("This task can wait until later.")    
+    case _:
+        reminder = "Invalid priority level."
