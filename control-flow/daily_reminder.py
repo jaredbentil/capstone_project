@@ -20,9 +20,9 @@
 #Print a reminder about the task that includes its priority level and whether immediate action is required based on time sensitivity.
 #A message should be ‘that requires immediate attention today!’
 
-task = input("Please enter your task for today: ")
-priority = input("What is the priority of this task? (high/medium/low): ").strip().lower()
-time_bound = input("Is this task time-bound? (yes/no): ").strip().lower()
+task = input("Enter your task: ")
+priority = input("Priority (high/medium/low): ").strip().lower()
+time_bound = input("Is it time-bound? (yes/no): ").strip().lower()
 match priority:
     case "high":
         reminder = f"High priority task: {task}."
