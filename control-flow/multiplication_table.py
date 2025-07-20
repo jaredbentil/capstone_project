@@ -20,5 +20,8 @@
 number = int(input("Enter a number to see its multiplication table: "))
 for x in range(1,11):
     timestable = number * x
-    print (number, "*", x, "=", timestable)
+    print(f"{number} * {x} = {timestable}")
+
+# End of the script
+
 
