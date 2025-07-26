@@ -21,7 +21,9 @@ def perform_operation(num1: float, num2: float, operation: str) -> float or str:
         return num1 / num2
     else:
         return "Error: Invalid operation. Please use 'add', 'subtract', 'multiply', or 'divide'."
-    
+
+perform_operation() 
+
 # Provided main.py for Testing:
 from arithmetic_operations import perform_operation
 
