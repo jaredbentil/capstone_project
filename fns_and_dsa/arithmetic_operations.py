@@ -8,7 +8,9 @@
 # For division, include handling for division by zero, returning a specific message or value that your main.py script can recognize and display appropriately.
 # Return the result of the arithmetic operation.
 
-def perform_operation(num1: float, num2: float, operation: str):
+from typing import Union
+
+def perform_operation(num1, num2, operation) -> Union[float, str]:
     if operation == 'add':
         return num1 + num2
     elif operation == 'subtract':
@@ -22,7 +24,6 @@ def perform_operation(num1: float, num2: float, operation: str):
     else:
         return "Error: Invalid operation. Please use 'add', 'subtract', 'multiply', or 'divide'."
 
-perform_operation() 
 
 # Provided main.py for Testing:
 from arithmetic_operations import perform_operation
