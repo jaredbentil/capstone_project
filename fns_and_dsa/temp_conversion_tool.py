@@ -22,12 +22,14 @@
 #Use input validation to ensure that the user enters a valid temperature and unit.
 
 def fahrenheit_to_celsius():
+    global FAHRENHEIT_TO_CELSIUS_FACTOR
     FAHRENHEIT_TO_CELSIUS_FACTOR = 5 / 9
     return FAHRENHEIT_TO_CELSIUS_FACTOR
 
 FAHRENHEIT_TO_CELSIUS_FACTOR = fahrenheit_to_celsius()
 
 def celsius_to_fahrenheit():
+    global CELSIUS_TO_FAHRENHEIT_FACTOR
     CELSIUS_TO_FAHRENHEIT_FACTOR = 9 / 5
     return CELSIUS_TO_FAHRENHEIT_FACTOR
 
