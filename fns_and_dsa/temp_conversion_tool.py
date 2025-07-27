@@ -50,6 +50,7 @@ def convert_to_fahrenheit(celsius):
         return fahrenheit
     except TypeError:
         raise ValueError("Invalid temperature. Please enter a numeric value.")
+
 def main():
     try:
         temperature = float(input("Enter a temperature to convert: "))
