@@ -21,8 +21,17 @@
 #Remember to access global variables using the global keyword if you need to modify them inside functions. However, for this task, you’ll only be reading their values.
 #Use input validation to ensure that the user enters a valid temperature and unit.
 
-FAHRENHEIT_TO_CELSIUS_FACTOR = 5 / 9
-CELSIUS_TO_FAHRENHEIT_FACTOR = 9 / 5
+def fahrenheit_to_celsius():
+    FAHRENHEIT_TO_CELSIUS_FACTOR = 5 / 9
+    return FAHRENHEIT_TO_CELSIUS_FACTOR
+
+FAHRENHEIT_TO_CELSIUS_FACTOR = fahrenheit_to_celsius()
+
+def celsius_to_fahrenheit():
+    CELSIUS_TO_FAHRENHEIT_FACTOR = 9 / 5
+    return CELSIUS_TO_FAHRENHEIT_FACTOR
+
+CELSIUS_TO_FAHRENHEIT_FACTOR = celsius_to_fahrenheit()
 
 def convert_to_celsius(fahrenheit):
     """Convert Fahrenheit to Celsius."""
