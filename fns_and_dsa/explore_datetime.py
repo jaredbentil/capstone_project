@@ -23,6 +23,7 @@
 # Remember, Python’s official documentation is an excellent resource for learning how to use the standard library modules.
 
 import datetime
+
 def display_current_datetime():
     current_date = datetime.datetime.now()
     print("Current Date and Time:", current_date.strftime("%Y-%m-%d %H:%M:%S")) 
@@ -38,6 +39,7 @@ def main():
         calculate_future_date(days)
     except ValueError:
         print("Invalid input. Please enter a numeric value for days.")      
+
 if __name__ == "__main__":
     main()
 # This script demonstrates the use of the datetime module to display the current date and time, and
