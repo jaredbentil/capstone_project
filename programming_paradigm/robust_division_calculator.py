@@ -23,30 +23,11 @@ def safe_divide(numerator, denominator):
         return "Error: Please enter numeric values only."
        
 
-# Expected Behavior:
-# The script is executed from the command line with two additional arguments representing the numerator and denominator. Here are sample commands and the expected outputs:
-
-# Normal Division:
-#  python main.py 10 5
-# Expected Output: The result of the division is 2.0
-
-# Division by Zero:
-#  python main.py 10 0
-# Expected Output: Error: Cannot divide by zero.
-
-# Invalid Input (Non-numeric):
-#  python main.py ten 5
-# Expected Output: Error: Please enter numeric values only.
-
-# Implementation Notes for you:
-# Focus on error handling within safe_divide in robust_division_calculator.py. Ensure you cover the scenarios detailed above.
-# Test your function using main.py by passing different types of inputs via command line arguments. This method allows you to quickly assess how well your error handling works in various situations.
-# This task helps you practice writing error-resistant code, a crucial skill in software development.
     
 # example usage:
 if __name__ == "__main__":
     # Perform normal division and print the result.
-    result = safe_divide(5, 10)
+    result = safe_divide(30, 5)
     print(f"The result of the division is {result}")
 
     # Perform division by zero and print the error message.
