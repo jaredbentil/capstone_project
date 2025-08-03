@@ -21,22 +21,41 @@ def safe_divide(numerator, denominator):
         return "Error: Cannot divide by zero."
     except ValueError:
         return "Error: Please enter numeric values only."
+       
+
+# Expected Behavior:
+# The script is executed from the command line with two additional arguments representing the numerator and denominator. Here are sample commands and the expected outputs:
+
+# Normal Division:
+#  python main.py 10 5
+# Expected Output: The result of the division is 2.0
+
+# Division by Zero:
+#  python main.py 10 0
+# Expected Output: Error: Cannot divide by zero.
+
+# Invalid Input (Non-numeric):
+#  python main.py ten 5
+# Expected Output: Error: Please enter numeric values only.
+
+# Implementation Notes for you:
+# Focus on error handling within safe_divide in robust_division_calculator.py. Ensure you cover the scenarios detailed above.
+# Test your function using main.py by passing different types of inputs via command line arguments. This method allows you to quickly assess how well your error handling works in various situations.
+# This task helps you practice writing error-resistant code, a crucial skill in software development.
     
-# Example usage:
+# example usage:
 if __name__ == "__main__":
-    import sys
+    # Perform normal division and print the result.
+    result = safe_divide(5, 10)
+    print(f"The result of the division is {result}")
 
-    if len(sys.argv) != 3:
-        print("Usage: python main.py <numerator> <denominator>")
-        sys.exit(1)
-
-    numerator = sys.argv[1]
-    denominator = sys.argv[2]
-
-    result = safe_divide(numerator, denominator)
-    print(result)       
-
+    # Perform division by zero and print the error message.
+    result = safe_divide(5, 0)
+    print(result)  # This will print the error message for division by zero.
+    # Perform division with non-numeric input and print the error message.
+    result = safe_divide("ten", 5)
+    print(result)  # This will print the error message for non-numeric input.
     
 
 
-    
+    # This will print the result of the division or an error message if applicable.
