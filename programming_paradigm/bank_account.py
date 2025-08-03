@@ -44,7 +44,7 @@
 
 class BankAccount:
     def __init__(self, initial_balance=0):
-        self.__account_balance = initial_balance  # Encapsulated attribute
+        self.__account_balance = float(initial_balance)  # Encapsulated attribute as float
 
     def deposit(self, amount):
         if amount > 0:
@@ -59,14 +59,16 @@ class BankAccount:
     def display_balance(self):
         print(f"Current Balance: ${self.__account_balance}")
 
+    def get_balance(self):
+        return float(self.__account_balance)
 
 # Example usage:
 if __name__ == "__main__":
     account = BankAccount(100)  # Starting balance for demo
     account.display_balance()  # Display initial balance
-    account.deposit(150)  # Deposit $50
+    account.deposit(50)  # Deposit $50
     account.display_balance()  # Display balance after deposit
-    if account.withdraw(0):  # Withdraw $20
+    if account.withdraw(20):  # Withdraw $20
         print("Withdrawal successful.")
     else:
         print("Withdrawal failed.")
