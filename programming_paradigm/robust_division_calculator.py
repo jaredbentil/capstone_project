@@ -18,7 +18,7 @@ def safe_divide(numerator, denominator):
         denom = float(denominator)
         return num / denom
     except ZeroDivisionError:
-        return "Error: cannot divide by zero."
+        return "Error: Cannot divide by zero."
     except ValueError:
         return "Error: Please provide valid numeric inputs."
     
