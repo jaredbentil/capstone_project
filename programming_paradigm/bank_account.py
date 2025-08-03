@@ -23,6 +23,23 @@
 # Use main.py to test your BankAccount class by performing various operations. Adjust the initial balance as needed for testing different scenarios.
 # This task combines learning OOP concepts with practical command line interaction, enhancing your understanding of Python programming.
 
+# Sample Command Line Usage and Expected Outputs:
+# Deposit:
+#    python main-0.py deposit:50
+# Expected Output: Deposited: $50
+
+# Withdraw with Sufficient Funds:
+#   python main-0.py withdraw:20
+# Expected Output: Withdrew: $20
+
+# Withdraw with Insufficient Funds:
+#    python main-0.py withdraw:150
+# Expected Output: Insufficient funds.
+
+# Display Balance:
+#   python main-0.py display
+# Expected Output: Current Balance: $[amount]
+
 # bank_account.py
 
 class BankAccount:
@@ -46,31 +63,15 @@ class BankAccount:
 # Example usage:
 if __name__ == "__main__":
     account = BankAccount(100)  # Starting balance for demo
-    account.display_balance()
-    account.deposit(50)
-    account.display_balance()
-    if account.withdraw(30):
+    account.display_balance()  # Display initial balance
+    account.deposit(50)  # Deposit $50
+    account.display_balance()  # Display balance after deposit
+    if account.withdraw(20):  # Withdraw $20
         print("Withdrawal successful.")
     else:
         print("Withdrawal failed.")
-    account.display_balance()
-    if account.withdraw(150):
-        print("Withdrawal successful.")
-    else:   
-        print("Withdrawal failed.")
-    account.display_balance()
-    account.deposit(20)
-    account.display_balance()
-    account.withdraw(10)
-    account.display_balance()
-    account.withdraw(200)  # Attempting to withdraw more than the balance
-    account.display_balance()
-    account.deposit(100)
-    account.display_balance()
-    account.withdraw(50)
-    account.display_balance()
-    account.withdraw(100)  # Attempting to withdraw the entire balance
-    account.display_balance()           
+    account.display_balance()  # Display balance after withdrawal  
+        
 
 # This code defines a simple BankAccount class with methods for depositing, withdrawing, and displaying the balance, demonstrating encapsulation and basic OOP principles.
 
