@@ -1,6 +1,9 @@
 # test_simple_calculator.py
 """A simple calculator class that supports basic arithmetic operations."""
 
+import unittest
+from simple_calculator import SimpleCalculator
+
 class SimpleCalculator:
     """A simple calculator class that performs basic arithmetic operations."""
 
