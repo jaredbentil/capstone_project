@@ -16,7 +16,7 @@ def safe_divide(numerator, denominator):
     try:
         num = float(numerator)
         denom = float(denominator)
-        return num / denom
+        return f"The result of the division is {num / denom}"
     except ZeroDivisionError:
         return "Error: Cannot divide by zero."
     except ValueError:
@@ -28,7 +28,7 @@ def safe_divide(numerator, denominator):
 if __name__ == "__main__":
     # Perform normal division and print the result.
     result = safe_divide(30, 5)
-    print(f"The result of the division is {result}")
+    print(result)
 
     # Perform division by zero and print the error message.
     result = safe_divide(5, 0)
