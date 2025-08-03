@@ -66,7 +66,7 @@ if __name__ == "__main__":
     account.display_balance()  # Display initial balance
     account.deposit(150)  # Deposit $50
     account.display_balance()  # Display balance after deposit
-    if account.withdraw(20):  # Withdraw $20
+    if account.withdraw(0):  # Withdraw $20
         print("Withdrawal successful.")
     else:
         print("Withdrawal failed.")
