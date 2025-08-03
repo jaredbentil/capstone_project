@@ -43,4 +43,34 @@ class BankAccount:
         print(f"Current Balance: ${self.__account_balance}")
 
 
+# Example usage:
+if __name__ == "__main__":
+    account = BankAccount(100)  # Starting balance for demo
+    account.display_balance()
+    account.deposit(50)
+    account.display_balance()
+    if account.withdraw(30):
+        print("Withdrawal successful.")
+    else:
+        print("Withdrawal failed.")
+    account.display_balance()
+    if account.withdraw(150):
+        print("Withdrawal successful.")
+    else:   
+        print("Withdrawal failed.")
+    account.display_balance()
+    account.deposit(20)
+    account.display_balance()
+    account.withdraw(10)
+    account.display_balance()
+    account.withdraw(200)  # Attempting to withdraw more than the balance
+    account.display_balance()
+    account.deposit(100)
+    account.display_balance()
+    account.withdraw(50)
+    account.display_balance()
+    account.withdraw(100)  # Attempting to withdraw the entire balance
+    account.display_balance()           
+
+# This code defines a simple BankAccount class with methods for depositing, withdrawing, and displaying the balance, demonstrating encapsulation and basic OOP principles.
 
