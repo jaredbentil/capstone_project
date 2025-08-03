@@ -64,13 +64,15 @@ class BankAccount:
 if __name__ == "__main__":
     account = BankAccount(100)  # Starting balance for demo
     account.display_balance()  # Display initial balance
-    account.deposit(50)  # Deposit $50
+    account.deposit(150)  # Deposit $50
     account.display_balance()  # Display balance after deposit
     if account.withdraw(20):  # Withdraw $20
         print("Withdrawal successful.")
     else:
         print("Withdrawal failed.")
     account.display_balance()  # Display balance after withdrawal  
+
+
         
 
 # This code defines a simple BankAccount class with methods for depositing, withdrawing, and displaying the balance, demonstrating encapsulation and basic OOP principles.
