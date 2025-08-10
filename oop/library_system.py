@@ -27,9 +27,13 @@ class Book:
         self.title = title
         self.author = author
   
+    def _basic_info(self):
+        """Return just the title and author in a consistent format."""
+        return f"{self.title} by {self.author}"
 
     def __str__(self):
-        return f"{self.title} by {self.author}"
+        return f"Book: {self._basic_info()}"
+
 
 class EBook(Book):
     def __init__(self, title, author, file_size):
@@ -37,7 +41,8 @@ class EBook(Book):
         self.file_size = file_size
 
     def __str__(self):
-        return f"Ebook: {super().__str__()}, File Size: {self.file_size}KB"  
+        return f"EBook: {self._basic_info()}, File Size: {self.file_size}KB"
+
 
 class PrintBook(Book):
     def __init__(self, title, author, page_count):
@@ -45,7 +50,7 @@ class PrintBook(Book):
         self.page_count = page_count
 
     def __str__(self):
-        return f"PrintBook: {super().__str__()}, Page Count: {self.page_count}" 
+        return f"PrintBook: {self._basic_info()}, Page Count: {self.page_count}"
 
 class Library:      
     def __init__(self):
