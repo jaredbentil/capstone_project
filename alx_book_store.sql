@@ -1,4 +1,3 @@
-
 -- Create Database
 CREATE DATABASE IF NOT EXISTS alx_book_store;
 
@@ -114,5 +113,12 @@ GROUP BY a.author_id
 ORDER BY total_books_sold DESC 
 LIMIT 5;
 
-
-
+-- Query to find monthly sales trends
+SELECT 
+    DATE_FORMAT(o.order_date, '%Y-%m') AS order_month,
+    SUM(b.price * od.quantity) AS total_sales
+FROM Orders o
+JOIN Order_Details od ON o.order_id = od.order_id
+JOIN Books b ON od.book_id = b.book_id
+GROUP BY order_month
+ORDER BY order_month;   
