@@ -113,3 +113,4 @@ JOIN Authors a ON b.author_id = a.author_id
 GROUP BY a.author_id
 ORDER BY total_books_sold DESC 
 LIMIT 5;
+
