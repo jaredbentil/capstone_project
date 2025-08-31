@@ -2,13 +2,13 @@
 
 from bookshelf.models import Book
 
-# Update the title
-book = Book.objects.get(title="1984")
-book.title = "Nineteen Eighty-Four"
-book.save()
+# Delete the book
+book = Book.objects.get(title="Nineteen Eighty-Four")
+book.delete()
 
-# Verify update
-book = Book.objects.get(id=book.id)
-print(book.title, book.author, book.publication_year)
+# Confirm deletion
+print(Book.objects.all())
 
-Nineteen Eighty-Four George Orwell 1949
+Expected Output:
+
+<QuerySet []>
