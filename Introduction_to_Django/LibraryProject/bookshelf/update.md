@@ -11,4 +11,6 @@ book.save()
 book = Book.objects.get(id=book.id)
 print(book.title, book.author, book.publication_year)
 
+Expected Output:
+
 Nineteen Eighty-Four George Orwell 1949
