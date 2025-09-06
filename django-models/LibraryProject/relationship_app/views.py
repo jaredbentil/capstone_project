@@ -3,8 +3,11 @@ from django.views.generic.detail import DetailView
 from .models import Book, Library
 from .models import Library
 
+# relationship_app/views.py
+from django.shortcuts import render
 
-
+def home(request):
+    return render(request, "relationship_app/home.html")
 # -------------------------------
 # Function-based view
 # -------------------------------
