@@ -123,6 +123,8 @@ AUTH_USER_MODEL = 'bookshelf.CustomUser'
 # Redirects all non-HTTPS requests to HTTPS
 SECURE_SSL_REDIRECT = True
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Enforces HSTS for one year (31536000 seconds)
 # This instructs the browser to always use HTTPS for future requests.
 SECURE_HSTS_SECONDS = 31536000
