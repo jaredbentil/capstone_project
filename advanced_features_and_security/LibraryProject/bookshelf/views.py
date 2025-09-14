@@ -6,7 +6,7 @@ from .models import Book
 
 # This is the view for displaying a list of books.
 def book_list(request):
-    books = Book.objects.all()  # Fetch all books from the database
+    books = Book.objects.all()
     return render(request, 'bookshelf/book_list.html', {'books': books})
 
 # This is the view for user registration.
@@ -17,28 +17,32 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
-            return redirect('login') # Redirect to a login page
+            return redirect('login')
     else:
         form = UserCreationForm()
     return render(request, 'bookshelf/register.html', {'form': form})
 
-# This view requires the 'can_create' permission.
+# This view handles searching for books.
+def search_books(request):
+    query = request.GET.get('q')
+    books = Book.objects.filter(title__icontains=query) # Using the ORM to prevent SQL injection
+    return render(request, 'bookshelf/book_list.html', {'books': books})
+
+# The following views require specific permissions.
 @permission_required('bookshelf.can_create', raise_exception=True)
 def create_book(request):
-    # This is placeholder code. You will need to add a form and logic.
+    # Add your form and logic for creating a book here
     return render(request, 'bookshelf/create_book.html')
 
-# This view requires the 'can_edit' permission.
 @permission_required('bookshelf.can_edit', raise_exception=True)
 def edit_book(request, pk):
-    # This is placeholder code. You will need to add a form and logic.
+    # Add your form and logic for editing a book here
     book = get_object_or_404(Book, pk=pk)
     return render(request, 'bookshelf/edit_book.html', {'book': book})
 
-# This view requires the 'can_delete' permission.
 @permission_required('bookshelf.can_delete', raise_exception=True)
 def delete_book(request, pk):
-    # This is placeholder code. You will need to add a form and logic.
+    # Add your logic for deleting a book here
     book = get_object_or_404(Book, pk=pk)
     book.delete()
     return redirect('book_list')

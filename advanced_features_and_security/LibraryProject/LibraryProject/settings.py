@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookshelf',
     'relationship_app',
+    'csp',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
@@ -129,3 +131,35 @@ LOGOUT_REDIRECT_URL = "login"
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
 
+
+
+# Set DEBUG to False in production
+DEBUG = False
+
+# Security settings
+# CSRF and Session cookies are secure and only sent over HTTPS
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Protect against cross-site scripting (XSS)
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Protect against clickjacking attacks
+X_FRAME_OPTIONS = 'DENY'
+
+# Optional but recommended security headers
+SECURE_HSTS_SECONDS = 3600  # Enforces HTTPS for the next hour
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_SSL_REDIRECT = True
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_IMG_SRC = ("'self'", 'data:')
+
+# A concise guide on security configurations
+# DEBUG = False in production to prevent exposure of sensitive information.
+# CSRF and Session cookies are configured to be secure, ensuring they are
+# only transmitted over encrypted connections (HTTPS).
+# The X_FRAME_OPTIONS, SECURE_BROWSER_XSS_FILTER, and
+# SECURE_CONTENT_TYPE_NOSNIFF headers protect against common browser vulnerabilities.
