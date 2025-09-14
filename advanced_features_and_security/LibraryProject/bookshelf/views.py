@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from .models import Book
+from .forms import ExampleForm 
 
 # This is the view for displaying a list of books.
 def book_list(request):
