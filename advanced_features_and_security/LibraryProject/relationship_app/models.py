@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # Define the models once, and only once, per app
-# ---------------------------------------------------------------------
+# -------------------------------------------------------------------
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
