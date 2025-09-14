@@ -2,12 +2,9 @@
 from django.contrib import admin
 from django.urls import path, include
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('bookshelf.urls')),
-]
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('relationship_app.urls')),  # add this line
-]
 
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('relationship_app.urls')),
+    path('bookshelf/', include('bookshelf.urls')), # Assuming a bookshelf app
+]
