@@ -14,3 +14,5 @@ urlpatterns = [
     # Include all paths managed by the router (e.g., authors/, books/, etc.)
     path('', include(router.urls)),
 ]
+
+

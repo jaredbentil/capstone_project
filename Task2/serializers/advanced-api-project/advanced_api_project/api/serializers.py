@@ -29,20 +29,7 @@ class BookSerializer(serializers.ModelSerializer):
 
 # Step 4: Create AuthorSerializer
 class AuthorSerializer(serializers.ModelSerializer):
-    """
-    Serializer for the Author model. 
-    This serializer demonstrates handling a nested relationship by including 
-    the related 'books' using the BookSerializer.
-    
-    Step 5: Relationship Handling:
-    The 'books' field is defined using BookSerializer(many=True, read_only=True).
-    - 'many=True' indicates that the field represents a collection (a list of books).
-    - 'read_only=True' is crucial for nested relationships where we don't want to 
-      handle the creation/update of the nested objects via the parent serializer's 
-      standard create/update methods. It defaults to the ForeignKey's related_name 
-      ('books') defined in api/models.py.
-    """
-    
+
     # Nested Serializer: This field uses the BookSerializer to represent 
     # the Author's related books (via the 'books' related_name).
     books = BookSerializer(many=True, read_only=True)
@@ -51,3 +38,5 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = Author
         # The fields include the simple 'name' and the complex, nested 'books' list.
         fields = ['id', 'name', 'books']
+
+
