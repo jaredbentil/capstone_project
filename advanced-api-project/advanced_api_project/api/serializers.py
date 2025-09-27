@@ -32,3 +32,6 @@ class AuthorSerializer(serializers.ModelSerializer):
         # The fields include the simple 'name' and the complex, nested 'books' list.
         fields = ['id', 'name', 'books']
 # End of file
+# alx test
+
+
