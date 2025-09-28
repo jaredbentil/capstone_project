@@ -1,33 +1,46 @@
-from django.shortcuts import render
-
-# Create your views here.
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, viewsets
 from .models import Author, Book
 from .serializers import AuthorSerializer, BookSerializer
 
-# --- Author ViewSet (No changes needed here) ---
-# We can keep the ViewSet for Authors as it provides full CRUD functionality automatically.
-from rest_framework import viewsets
 
 class AuthorViewSet(viewsets.ModelViewSet):
-  
+   
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
-    # You could add permissions here as well, for example:
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-# --- Book Generic Views (Fulfills the new task requirements) ---
-
-class BookListCreateView(generics.ListCreateAPIView):
+class BookListView(generics.ListAPIView):
    
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
 
 
-class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
-    
+class BookDetailView(generics.RetrieveAPIView):
+   
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
+
+
+class BookCreateView(generics.CreateAPIView):
+   
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class BookUpdateView(generics.UpdateAPIView):
+   
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class BookDeleteView(generics.DestroyAPIView):
+   
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
