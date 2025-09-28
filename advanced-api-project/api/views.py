@@ -1,6 +1,7 @@
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
 from .models import Author, Book
+from django_filters import rest_framework as filters
 from .serializers import AuthorSerializer, BookSerializer
 
 # --- Author ViewSet (Provides full CRUD automatically) ---
