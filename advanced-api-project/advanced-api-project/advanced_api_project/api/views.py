@@ -1,49 +1,51 @@
-
-
-from rest_framework import viewsets, filters
+# api/views.py
+from rest_framework import generics, filters
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-from django_filters.rest_framework import DjangoFilterBackend # Required for advanced filtering
-from .models import Author, Book
-from .serializers import AuthorSerializer, BookSerializer
+# Make sure you have installed and added 'django_filters' to INSTALLED_APPS in settings.py
+from django_filters.rest_framework import DjangoFilterBackend 
 
+# NOTE: These imports assume you have Book model in api/models.py 
+# and BookSerializer in api/serializers.py
+from .models import Book 
+from .serializers import BookSerializer 
 
-# --- 1. Author ViewSet (Simple CRUD) ---
-class AuthorViewSet(viewsets.ModelViewSet):
+# --- Collection Endpoint (List & Create) ---
+class BookListCreate(generics.ListCreateAPIView):
     """
-    API endpoint that allows Authors to be viewed, created, updated, or deleted.
-    """
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
-    # Allows GET (Read) to anyone, requires authentication for POST, PUT, PATCH, DELETE.
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-
-# --- 2. Book ViewSet (CRUD + Advanced Filtering/Searching/Ordering) ---
-class BookViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows Books to be viewed, created, updated, or deleted.
-    Includes support for filtering, searching, and ordering via query parameters.
+    Handles GET (list all books) and POST (create a new book), 
+    with support for filtering, searching, and ordering.
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly] 
     
-    # --- Integrate Filter Backends into the ViewSet ---
+    # --- Integrate Filter Backends (Required for Filtering, Searching, Ordering) ---
     filter_backends = [
-        DjangoFilterBackend,  # 1. Filtering by exact match (e.g., ?author=1)
-        filters.SearchFilter, # 2. Text search (e.g., ?search=Lord)
-        filters.OrderingFilter, # 3. Ordering/Sorting (e.g., ?ordering=-publication_year)
+        DjangoFilterBackend,  # Step 1: Filtering by exact match
+        filters.SearchFilter, # Step 2: Text search
+        filters.OrderingFilter, # Step 3: Ordering/Sorting
     ]
     
-    # --- Filtering Configuration (DjangoFilterBackend) ---
+    # --- Step 1: Filtering Configuration ---
+    # Allows filtering by exact match on these fields.
     filterset_fields = ['title', 'author', 'publication_year'] 
     
-    # --- Search Configuration (filters.SearchFilter) ---
-    search_fields = ['title', 'author__name'] # Assuming author is a foreign key with a 'name' field
+    # --- Step 2: Search Configuration ---
+    # Allows full-text search across these fields.
+    search_fields = ['title', 'author'] 
     
-    # --- Ordering Configuration (filters.OrderingFilter) ---
+    # --- Step 3: Ordering Configuration ---
+    # Allows ordering results by these fields using the 'ordering' query param.
     ordering_fields = ['title', 'publication_year', 'author']
-    ordering = ['title'] # Default ordering
+    ordering = ['title'] 
 
-    # NOTE: The custom get_queryset for filtering by author is no longer needed 
-    # as the 'DjangoFilterBackend' and 'filterset_fields' handle that more flexibly.
+
+# --- Instance Endpoint (Retrieve, Update, and Delete) ---
+class BookRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Handles GET (detail), PUT/PATCH (update), and DELETE (destroy) for a single book.
+    Permissions: Requires authentication for all operations.
+    """
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
