@@ -1,15 +1,25 @@
 from django.urls import path
-from . import views
 from django.contrib.auth import views as auth_views
+from .views import (
+    PostListView,
+    PostDetailView,
+    PostCreateView,
+    PostUpdateView,
+    PostDeleteView,
+)
+from . import views
 
 urlpatterns = [
-    # Using our custom registration view
-    path('register/', views.register, name='register'),
+    # Post CRUD URLs
+    path('', PostListView.as_view(), name='blog-home'),
+    path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
+    path('post/new/', PostCreateView.as_view(), name='post-create'),
+    path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
+    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
 
-    # Using Django's built-in Login and Logout views
+    # Auth URLs (from the previous task)
+    path('register/', views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='blog/logout.html'), name='logout'),
-
-    # Using our custom profile view
     path('profile/', views.profile, name='profile'),
 ]
