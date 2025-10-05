@@ -12,6 +12,8 @@ from .models import Comment
 from .forms import CommentForm
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from django.db.models import Q
+from taggit.models import Tag
 
 # This view is handled by the `django_blog/urls.py` for the root URL
 def home(request):
@@ -28,11 +30,12 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+    fields = ['title', 'content', 'tags'] # Add 'tags' to fields
     template_name = 'blog/post_detail.html'
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'tags'] # Add 'tags'
     template_name = 'blog/post_form.html'
 
     def form_valid(self, form):
@@ -41,7 +44,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'tags'] # Add 'tags'
     template_name = 'blog/post_form.html'
 
     def form_valid(self, form):
@@ -123,3 +126,40 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         comment = self.get_object()
         return self.request.user == comment.author
+
+class TaggedPostListView(ListView):
+    model = Post
+    template_name = 'blog/post_list.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        # Get the tag from the URL slug
+        tag = get_object_or_404(Tag, slug=self.kwargs.get('slug'))
+        return Post.objects.filter(tags__in=[tag])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Pass the tag name to the template
+        context['tag_name'] = self.kwargs.get('slug')
+        return context
+
+class PostSearchView(ListView):
+    model = Post
+    template_name = 'blog/search_results.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            # Search in title, content, and tags
+            return Post.objects.filter(
+                Q(title__icontains=query) |
+                Q(content__icontains=query) |
+                Q(tags__name__icontains=query)
+            ).distinct()
+        return Post.objects.none()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('q', '')
+        return context

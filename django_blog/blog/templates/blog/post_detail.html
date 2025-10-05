@@ -1,9 +1,13 @@
 {% extends "blog/base.html" %}
 {% block content %}
-    <article class="media content-section">
-      <!-- ... (your existing article content for the post) ... -->
-        <h2 class="article-title">{{ object.title }}</h2>
-        <p class="article-content">{{ object.content }}</p>
+   <h2 class="article-title">{{ object.title }}</h2>
+<p class="article-content">{{ object.content }}</p>
+<div class="post-tags">
+    <strong>Tags:</strong>
+    {% for tag in object.tags.all %}
+        <a href="{% url 'tagged' tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+</div>
     </article>
 
     <!-- Comments Section -->
