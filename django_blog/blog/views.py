@@ -8,6 +8,10 @@ from django.views.generic import (
     DeleteView
 )
 from .models import Post
+from .models import Comment
+from .forms import CommentForm
+from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
 
 # This view is handled by the `django_blog/urls.py` for the root URL
 def home(request):
@@ -76,3 +80,46 @@ def register(request):
 def profile(request):
     # ... (existing code)
     pass
+
+# New view for adding comments
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/post_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comment_form'] = CommentForm()
+        return context
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+
+    def form_valid(self, form):
+        # Find the post this comment belongs to from the URL
+        post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
+        form.instance.post = post
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'blog/comment_form.html'
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+    template_name = 'blog/comment_confirm_delete.html'
+
+    def get_success_url(self):
+        # Redirect back to the post the comment was on
+        post = self.get_object().post
+        return reverse_lazy('post-detail', kwargs={'pk': post.pk})
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author
