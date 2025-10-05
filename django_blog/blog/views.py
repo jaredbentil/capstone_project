@@ -139,20 +139,21 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == comment.author
 
 
-class TaggedPostListView(ListView):
+class PostByTagListView(ListView):
     model = Post
     template_name = 'blog/post_list.html'
     context_object_name = 'posts'
 
     def get_queryset(self):
-        tag = get_object_or_404(Tag, slug=self.kwargs.get('slug'))
+        # Get the tag from the URL's 'tag_slug' parameter
+        tag = get_object_or_404(Tag, slug=self.kwargs.get('tag_slug'))
         return Post.objects.filter(tags__in=[tag])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tag_name'] = self.kwargs.get('slug')
+        # Pass the tag name to the template
+        context['tag_name'] = self.kwargs.get('tag_slug')
         return context
-
 
 class PostSearchView(ListView):
     model = Post
