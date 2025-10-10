@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import action
 from .serializers import UserSerializer, RegisterSerializer
+from notifications.models import Notification
 
 
 CustomUser = get_user_model()
@@ -85,7 +86,6 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(detail=True, methods=['post'], url_path='follow')
     def follow(self, request, pk=None):
-        """Action to follow a user."""
         user_to_follow = self.get_object()
         current_user = request.user
 
@@ -93,8 +93,16 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
             return Response({"error": "You cannot follow yourself."}, status=status.HTTP_400_BAD_REQUEST)
         
         current_user.following.add(user_to_follow)
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
+        # Create notification
+        Notification.objects.create(
+            recipient=user_to_follow,
+            actor=current_user,
+            verb='started following you'
+        )
+        
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
     @action(detail=True, methods=['post'], url_path='unfollow')
     def unfollow(self, request, pk=None):
         """Action to unfollow a user."""

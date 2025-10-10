@@ -21,3 +21,4 @@ Follow these steps to get the project running locally.
 -   pip (Python package installer)
 -   Virtualenv (recommended)
 
+(All endpoints require authentication: Authorization: Token <your_token>)
