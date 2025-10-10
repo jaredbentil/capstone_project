@@ -10,11 +10,17 @@ CustomUser = get_user_model().objects.create_user
 
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the CustomUser model, used for retrieving user details."""
-    class Meta:
-        model = get_user_model() # Using get_user_model() directly here
-        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'bio', 'profile_picture', 'followers', 'following')
-        read_only_fields = ('followers', 'following')
+    # Display the usernames for followers/following for better readability
+    followers = serializers.StringRelatedField(many=True, read_only=True)
+    following = serializers.StringRelatedField(many=True, read_only=True)
 
+    class Meta:
+        model = CustomUser
+        fields = (
+            'id', 'username', 'email', 'first_name', 'last_name', 
+            'bio', 'profile_picture', 'followers', 'following'
+        )
+        read_only_fields = ('followers', 'following')
 class RegisterSerializer(serializers.ModelSerializer):
     
     serializers.CharField()
