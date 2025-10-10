@@ -7,6 +7,7 @@ from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
 from .permissions import IsOwnerOrReadOnly
 
+
 class PostViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides `list`, `create`, `retrieve`,
@@ -52,7 +53,7 @@ class FeedView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        # Get all users that the current user is following
-        followed_users = self.request.user.following.all()
-        # Filter posts to only include those from followed users
-        return Post.objects.filter(author__in=followed_users).order_by('-created_at')
+        
+        following_users = self.request.user.following.all()
+        
+        return Post.objects.filter(author__in=following_users).order_by('-created_at')
