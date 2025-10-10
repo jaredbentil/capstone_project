@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, generics
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
 from .permissions import IsOwnerOrReadOnly
@@ -42,3 +42,17 @@ class CommentViewSet(viewsets.ModelViewSet):
         post_pk = self.kwargs.get('post_pk')
         post = Post.objects.get(pk=post_pk)
         serializer.save(author=self.request.user, post=post)
+
+class FeedView(generics.ListAPIView):
+    """
+    This view returns a personalized feed of posts from users that the
+    current user follows.
+    """
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # Get all users that the current user is following
+        followed_users = self.request.user.following.all()
+        # Filter posts to only include those from followed users
+        return Post.objects.filter(author__in=followed_users).order_by('-created_at')
