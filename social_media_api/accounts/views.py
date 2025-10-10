@@ -1,13 +1,13 @@
-# accounts/views.py
+
 
 from contextvars import Token
 from django.contrib.auth import get_user_model
-from rest_framework import generics, permissions, status, viewsets
+from rest_framework import viewsets, permissions, status, generics, mixins
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import action
 from .serializers import UserSerializer, RegisterSerializer
-from .serializers import UserSerializer, RegisterSerializer
+
 
 CustomUser = get_user_model()
 
@@ -46,17 +46,32 @@ class CustomAuthToken(ObtainAuthToken):
             'email': user.email
         })
 
-class UserProfileView(generics.RetrieveUpdateAPIView):
+class UserProfileView(mixins.RetrieveModelMixin,
+                      mixins.UpdateModelMixin,
+                      generics.GenericAPIView):
     """
     API endpoint for retrieving and updating the authenticated user's profile.
     """
-    queryset = CustomUser.objects.all()
+    queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
         # Returns the authenticated user's object
         return self.request.user
+
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests to retrieve the user profile."""
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        """Handle PUT requests to update the user profile."""
+        return self.update(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        """Handle PATCH requests to partially update the user profile."""
+        return self.partial_update(request, *args, **kwargs)
+
     
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
