@@ -13,4 +13,6 @@ urlpatterns = [
     path('login/', CustomAuthToken.as_view(), name='login'),
     path('profile/', UserProfileView.as_view(), name='user-profile'),
     path('', include(router.urls)), # Include the router URLs
+    path('follow/<int:user_id>/', UserViewSet.as_view({'post': 'follow'}), name='follow-user'),
+    path('unfollow/<int:user_id>/', UserViewSet.as_view({'post': 'unfollow'}), name='unfollow-user'),
 ]
