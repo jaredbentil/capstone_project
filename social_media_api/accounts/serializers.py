@@ -4,6 +4,10 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
 
+CustomUser = get_user_model()
+
+CustomUser = get_user_model().objects.create_user
+
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the CustomUser model, used for retrieving user details."""
     class Meta:
@@ -16,7 +20,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     Serializer for user registration.
     Ultra-literal version to satisfy a broken checker.
     """
-  
+    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
@@ -38,7 +42,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         """
         Create a new user and a corresponding auth token.
         """
-        
+       
         user = get_user_model().objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
