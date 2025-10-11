@@ -67,8 +67,10 @@ class CommentViewSet(viewsets.ModelViewSet):
         return Comment.objects.filter(post_id=post_pk)
 
     def perform_create(self, serializer):
-        post_pk = self.kwargs.get('post_pk')
-        post = Post.objects.get(pk=post_pk)
+        pk = self.kwargs.get('post_pk')
+        
+        post = generics.get_object_or_404(Post, pk=pk)
+        
         comment = serializer.save(author=self.request.user, post=post)
         
         if post.author != self.request.user:
@@ -78,7 +80,6 @@ class CommentViewSet(viewsets.ModelViewSet):
                 verb='commented on your post',
                 target=comment.post
             )
-
 
 class FeedView(generics.ListAPIView):
     """
