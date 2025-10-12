@@ -19,4 +19,3 @@ class EngineerSerializer(serializers.ModelSerializer):
         model = Engineer
         fields = ['id', 'username', 'email']
 
-
