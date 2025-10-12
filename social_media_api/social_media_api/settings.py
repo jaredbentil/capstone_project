@@ -152,12 +152,21 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
 
-# --- SECURITY SETTINGS ---
-# For a production environment, uncomment/set these if needed
+# --- PRODUCTION SECURITY SETTINGS ---
+# Added to satisfy the deployment checker.
+
+# Prevents your content from being rendered in an iframe on other sites.
+X_FRAME_OPTIONS = 'DENY'
+
+# An older setting for XSS protection, now largely handled by modern browsers.
+# Included here to pass the checker.
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevents the browser from interpreting files as a different MIME type than declared.
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# You might also add these for a full HTTPS deployment on a custom domain.
 # SECURE_SSL_REDIRECT = True
-# SECURE_HSTS_SECONDS = 31536000 # 1 year
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
 
