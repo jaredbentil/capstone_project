@@ -30,6 +30,8 @@ DEBUG = False
 if 'RENDER' in os.environ:
     DEBUG = 'DEVELOPMENT' in os.environ
 
+PORT = os.environ.get('PORT', 8000)
+
 # Set your Heroku app's URL here
 ALLOWED_HOSTS = ['jared-social-media-api.herokuapp.com'] 
 
@@ -144,10 +146,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_ACCESS_KEY_ID = os.environ.get('A451873237857')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', 'us-east-1') # e.g., 'ca-central-1'
+AWS_STORAGE_BUCKET_NAME = os.environ.get('social-media-api-media')
+AWS_S3_REGION_NAME = os.environ.get('Ohio', 'us-east-2') 
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
