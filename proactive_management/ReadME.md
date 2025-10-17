@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# Intro_to_DB
-=======
 CAPSTONE PROJECT
 
 PROJECT PLAN
@@ -51,4 +48,4 @@ POST /api/notifications/send/
 Take a notification ID and a list of customer IDs to send emails to
 
 
->>>>>>> 0315cdfb342970f6047d8190384333055c5f88cb
+
