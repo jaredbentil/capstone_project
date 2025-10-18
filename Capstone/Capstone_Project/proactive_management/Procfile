@@ -1,0 +1,1 @@
+web: gunicorn proactive_management.wsgi --log-file -

@@ -26,7 +26,6 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', config('ALLOWED_HOSTS', default='').s
 # Application definition
 
 INSTALLED_APPS = [
-    # Django Built-in Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -68,11 +68,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'proactive_management.wsgi.application'
 
 
-# Database Configuration (Using secure environment variables)
-
+# Database Configuration (Using secure environment variable
 DATABASES = {
     'default': dj_database_url.config(
-        default=f'postgres://{config("DB_USER")}:{config("DB_PASSWORD")}@{config("DB_HOST", "localhost")}:{config("DB_PORT", "5432")}/{config("DB_NAME", "proactive_management_db")}'
+        # Heroku provides the DATABASE_URL environment variable
+        default=config('DATABASE_URL', 
+            # Fallback to your local PostgreSQL settings if DATABASE_URL is not set
+            default=f'postgres://{config("DB_USER")}:{config("DB_PASSWORD")}@{config("DB_HOST", "localhost")}:{config("DB_PORT", "5432")}/{config("DB_NAME", "proactive_management_db")}'
+        ),
+        conn_max_age=600 # Optional: connection pooling
     )
 }
 
@@ -105,6 +109,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
