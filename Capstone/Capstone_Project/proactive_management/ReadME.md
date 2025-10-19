@@ -47,5 +47,7 @@ View, update, or delete a specific notification
 POST /api/notifications/send/
 Take a notification ID and a list of customer IDs to send emails to
 
+Challenges
+I had difficluty in deploying my api on Heroku. files failed to push to Heroku github repo
 
-
+i will spend more time to perfect deployment of my api 
